@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box, Flex, VStack, Text, IconButton, Button } from "@chakra-ui/react";
 import { IoClose } from "react-icons/io5";
 
