@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import { backend } from '../lib/backend.js'
+import { ProductGrid } from '../components/ProductGrid.jsx'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -26,6 +27,8 @@ export default function Home() {
   if (error) return <Text>Error: {error}</Text>
 
   return (
+
+
     <Box p="4" textAlign="center">
       <Heading mb="4">Products</Heading>
 

@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import ItemDetails from './pages/ItemDetails.jsx'
 import ShoppingCart from './pages/ShoppingCart.jsx'
-
 import { Provider } from './components/ui/provider.jsx'
 import { useState } from 'react'
 
