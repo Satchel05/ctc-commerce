@@ -16,7 +16,7 @@ import { backend } from '../lib/backend.js'
 // const colors = ['#f8f8f8', '#e3e1dc', '#25294d']
 // const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
-export default function ItemDetails({ item: suppliedItem }) {
+export default function ItemDetails({ item: suppliedItem, setCartItems }) {
   const { id } = useParams()
   const [item, setItem] = useState(suppliedItem)
   const [loading, setLoading] = useState(!suppliedItem)
@@ -40,6 +40,14 @@ export default function ItemDetails({ item: suppliedItem }) {
 
     fetchItem()
   }, [id, suppliedItem])
+
+  const addToCart = () =>
+    setCartItems?.((prev) => {
+      const existing = prev.find((entry) => entry.id === item.id && entry.size === selectedSize)
+      return existing
+        ? prev.map((entry) => (entry === existing ? { ...entry, qty: entry.qty + 1 } : entry))
+        : [...prev, { id: item.id, qty: 1, size: selectedSize }]
+    })
 
   if (loading) return <Text p="6">Loading...</Text>
   if (error) return <Text p="6">Error: {error}</Text>
@@ -194,6 +202,7 @@ export default function ItemDetails({ item: suppliedItem }) {
             fontWeight="600"
             _hover={{ bg: '#8fe39a' }}
             _active={{ bg: '#81d98b', transform: 'translateY(1px)' }}
+            onClick={addToCart}
           >
             <Text flex="1">Add to cart</Text>
             <Icon size="md" >
