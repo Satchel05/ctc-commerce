@@ -9,6 +9,8 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
+import { Icon } from "@chakra-ui/react"
+import { MdOutlineShoppingCart } from "react-icons/md"
 import { backend } from '../lib/backend.js'
 
 // const colors = ['#f8f8f8', '#e3e1dc', '#25294d']
@@ -194,7 +196,8 @@ export default function ItemDetails({ item: suppliedItem }) {
             _active={{ bg: '#81d98b', transform: 'translateY(1px)' }}
           >
             <Text flex="1">Add to cart</Text>
-            <Text fontSize="17px" lineHeight="1">🛒</Text>
+            <Icon size="md" >
+<MdOutlineShoppingCart />  </Icon>
           </Button>
         </Box>
       </Box>
