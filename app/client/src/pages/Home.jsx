@@ -12,11 +12,13 @@ import {
 import { LuMenu } from "react-icons/lu";
 import { BsBagFill } from "react-icons/bs";
 import { backend } from "../lib/backend.js";
+import FilterSidebar from "../components/ui/FilterSidebar.jsx";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
@@ -46,8 +48,14 @@ export default function Home() {
       pr="40px"
       pl="40px"
     >
+      <Box display={isSidebarOpen ? "intial" : "none"}>
+        <FilterSidebar onClose={setIsSidebarOpen} />
+      </Box>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <LuMenu style={{ width: "28px", height: "28px" }} />
+        <LuMenu
+          style={{ width: "28px", height: "28px" }}
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
         <Heading
           color="#000"
           fontFamily="body"
