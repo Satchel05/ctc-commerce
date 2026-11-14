@@ -12,11 +12,13 @@ import {
 import { LuMenu } from "react-icons/lu";
 import { BsBagFill } from "react-icons/bs";
 import { backend } from "../lib/backend.js";
+import BuyNow from '../components/BuyNow.jsx';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const nav = useNavigate();
 
   useEffect(() => {
@@ -83,6 +85,7 @@ export default function Home() {
       >
         {products.map((product) => (
           <Card.Root
+            key={product.id}
             maxW="sm"
             overflow="hidden"
             cursor="pointer"
@@ -105,12 +108,25 @@ export default function Home() {
               </Text>
             </Card.Body>
             <Card.Footer gap="2">
-              <Button variant="solid">Buy now</Button>
+              <Button
+                variant="solid"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setSelectedProduct(product);
+                }}
+              >
+                Buy now
+              </Button>
               <Button variant="ghost">Add to cart</Button>
             </Card.Footer>
           </Card.Root>
         ))}
       </Stack>
+
+      <BuyNow
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
     </Box>
   );
 }
