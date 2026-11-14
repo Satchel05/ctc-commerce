@@ -16,7 +16,7 @@ import { backend } from '../lib/backend.js'
 // const colors = ['#f8f8f8', '#e3e1dc', '#25294d']
 // const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
-export default function ItemDetails({ item: suppliedItem , setCartItems }) {
+export default function ItemDetails({ item: suppliedItem , setCartItems}) {
   const { id } = useParams()
   const [item, setItem] = useState(suppliedItem)
   const [loading, setLoading] = useState(!suppliedItem)
