@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import ItemDetails from './pages/ItemDetails.jsx'
-import { Provider } from '/components/ui/Provider.jsx'
+import { Provider } from './components/ui/provider.jsx'
 
 export default function App() {
   return (
