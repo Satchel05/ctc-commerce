@@ -71,7 +71,14 @@ export default function Home() {
       >
         All Items
       </Text>
-      <Stack gap="32px" align="center" mt="20px">
+      <Stack
+        gap="32px"
+        mt="20px"
+        direction={{ base: "column", md: "row" }}
+        flexWrap={{ base: "nowrap", md: "wrap" }}
+        align="center"
+        justify="center"
+      >
         {products.map((product) => (
           <>
             <Card.Root maxW="sm" overflow="hidden">
