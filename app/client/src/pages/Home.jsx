@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -16,6 +17,7 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -80,30 +82,33 @@ export default function Home() {
         justify="center"
       >
         {products.map((product) => (
-          <>
-            <Card.Root maxW="sm" overflow="hidden">
-              <Image
-                src={product.image_url}
-                alt="Green double couch with wooden legs"
-              />
-              <Card.Body gap="2">
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Description>{product.description}</Card.Description>
-                <Text
-                  textStyle="2xl"
-                  fontWeight="medium"
-                  letterSpacing="tight"
-                  mt="2"
-                >
-                  ${product.price}
-                </Text>
-              </Card.Body>
-              <Card.Footer gap="2">
-                <Button variant="solid">Buy now</Button>
-                <Button variant="ghost">Add to cart</Button>
-              </Card.Footer>
-            </Card.Root>
-          </>
+          <Card.Root
+            maxW="sm"
+            overflow="hidden"
+            cursor="pointer"
+            onClick={() => nav(`/products/${product.id}`)}
+          >
+            <Image
+              src={product.image_url}
+              alt="Green double couch with wooden legs"
+            />
+            <Card.Body gap="2">
+              <Card.Title>{product.name}</Card.Title>
+              <Card.Description>{product.description}</Card.Description>
+              <Text
+                textStyle="2xl"
+                fontWeight="medium"
+                letterSpacing="tight"
+                mt="2"
+              >
+                ${product.price}
+              </Text>
+            </Card.Body>
+            <Card.Footer gap="2">
+              <Button variant="solid">Buy now</Button>
+              <Button variant="ghost">Add to cart</Button>
+            </Card.Footer>
+          </Card.Root>
         ))}
       </Stack>
     </Box>
