@@ -16,13 +16,12 @@ import { backend } from '../lib/backend.js'
 // const colors = ['#f8f8f8', '#e3e1dc', '#25294d']
 // const sizes = ['XS', 'S', 'M', 'L', 'XL']
 
-export default function ItemDetails({ item: suppliedItem }) {
+export default function ItemDetails({ item: suppliedItem , setCartItems }) {
   const { id } = useParams()
   const [item, setItem] = useState(suppliedItem)
   const [loading, setLoading] = useState(!suppliedItem)
   const [error, setError] = useState(null)
-  const [selectedColor, setSelectedColor] = useState(0)
-  const [selectedSize, setSelectedSize] = useState('S')
+
 
   useEffect(() => {
     if (suppliedItem || !id) return
@@ -136,14 +135,14 @@ export default function ItemDetails({ item: suppliedItem }) {
           ))}
         </Stack> */}
 
-        <Stack direction="row" align="center" justify="space-between" mt="20px">
+        {/* <Stack direction="row" align="center" justify="space-between" mt="20px">
           <Text fontSize="11px" fontWeight="500">
             Size: <Text as="span" color="#777">{selectedSize}</Text>
           </Text>
           <Button variant="plain" p="0" minW="auto" h="auto" fontSize="10px" color="#777">
             Size Guide
           </Button>
-        </Stack>
+        </Stack> */}
         {/* <SimpleGrid columns={5} gap="8px" mt="8px">
           {sizes.map((size) => (
             <Button
@@ -198,6 +197,8 @@ export default function ItemDetails({ item: suppliedItem }) {
             <Text flex="1">Add to cart</Text>
             <Icon size="md" >
 <MdOutlineShoppingCart />  </Icon>
+            {/* <Text fontSize="17px" lineHeight="1">🛒</Text> */}
+
           </Button>
         </Box>
       </Box>
