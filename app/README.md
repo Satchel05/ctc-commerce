@@ -1,7 +1,7 @@
 # app
 
 - `client/` — React 19 + Vite + Chakra UI + Tailwind v4
-- `server/` — Express 5 + PostgreSQL (raw SQL via `pg`)
+- `server/` — Express 5 + PostgreSQL
 
 ## Getting started
 
