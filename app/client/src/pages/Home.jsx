@@ -8,6 +8,8 @@ import {
   Text,
   Card,
   Button,
+  Center,
+  Spinner,
 } from "@chakra-ui/react";
 import { LuMenu } from "react-icons/lu";
 import { BsBagFill } from "react-icons/bs";
@@ -38,7 +40,12 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading)
+    return (
+      <Center h="100dvh">
+        <Spinner size="xl" />
+      </Center>
+    );
   if (error) return <Text>Error: {error}</Text>;
 
   return (
@@ -50,9 +57,7 @@ export default function Home() {
       pr="40px"
       pl="40px"
     >
-      <Box display={isSidebarOpen ? "intial" : "none"}>
-        <FilterSidebar onClose={setIsSidebarOpen} />
-      </Box>
+      <FilterSidebar isOpen={isSidebarOpen} onClose={setIsSidebarOpen} />
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <LuMenu
           style={{ width: "28px", height: "28px" }}
@@ -97,6 +102,10 @@ export default function Home() {
             maxW="sm"
             overflow="hidden"
             cursor="pointer"
+            transition="transform 0.2s ease-out, box-shadow 0.2s ease-out"
+            _hover={{ transform: "translateY(-4px)", boxShadow: "lg" }}
+            _active={{ transform: "scale(0.98)" }}
+            _motionReduce={{ transition: "none" }}
             onClick={() => nav(`/products/${product.id}`)}
           >
             <Image

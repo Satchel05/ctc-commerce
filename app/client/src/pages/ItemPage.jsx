@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Container, Box, Button, Circle, Text, Image, Spinner, Stack, HStack, IconButton, AspectRatio } from '@chakra-ui/react'
+import { Center, Container, Box, Button, Circle, Text, Image, Spinner, Stack, HStack, IconButton, AspectRatio } from '@chakra-ui/react'
 import { LuCheck, LuChevronLeft } from 'react-icons/lu'
 import { backend } from '../lib/backend.js'
 
@@ -45,7 +45,7 @@ export default function ItemPage() {
     }, [id])
 
     if (isLoading) {
-        return <Container maxW="sm" py="6"><Spinner size="sm" /></Container>
+        return <Center h="100dvh"><Spinner size="xl" /></Center>
     }
     if (error) {
         return <Container maxW="sm" py="6"><Text>Error: {error}</Text></Container>
@@ -56,14 +56,27 @@ export default function ItemPage() {
     }
 
     return (
-        <Container maxW='sm' pt='8' minH='100dvh' display='flex' flexDirection='column'>
+        <Container
+            maxW='sm'
+            pt='8'
+            minH='100dvh'
+            display='flex'
+            flexDirection='column'
+            // Fade + slide up when the page opens
+            animationName='fade-in, slide-from-bottom'
+            animationDuration='0.35s'
+            animationTimingFunction='ease-out'
+            css={{ '--slide-from-bottom-distance': '1.5rem' }}
+            _motionReduce={{ animation: 'none' }}
+        >
             <Stack gap='5' flex='1'>
                 <IconButton
                     aria-label="Go back"
                     variant="ghost"
-                    size='lg'
+                    size='xl'
                     alignSelf="flex-start"
                     ml='-3'
+                    _icon={{ boxSize: '6' }}
                     mb='4'
                     onClick={() => navigate(-1)}
                 >
