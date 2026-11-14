@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { LuMenu } from "react-icons/lu";
-import { BsBag } from "react-icons/bs";
+import { BsBagFill } from "react-icons/bs";
 import { backend } from "../lib/backend.js";
 
 export default function Home() {
@@ -56,7 +56,7 @@ export default function Home() {
         >
           Products
         </Heading>
-        <BsBag style={{ width: "28px", height: "28px", fill: "#000" }} />
+        <BsBagFill style={{ width: "28px", height: "28px", fill: "#000" }} />
       </Box>
 
       <Text
