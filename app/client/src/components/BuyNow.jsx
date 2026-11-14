@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { Button, CloseButton, Dialog, HStack, Stack, Image, Portal, Text } from '@chakra-ui/react'
+import { Box, Button, CloseButton, Dialog, HStack, Stack, Portal, Text } from '@chakra-ui/react'
+import { LuCheck } from 'react-icons/lu'
+import { PRESSABLE, checkStyle } from '../lib/pressable.js'
 
 const sizes = ['S','M','L']
 const colors = [
@@ -13,6 +15,13 @@ export default function BuyNow({ product, onClose}) {
     const [selectedSize, setSelectedSize] = useState('S')   
     const [selectedColor, setSelectedColor] = useState('Orange')
 
+    // Remember the last product so the popup keeps its content while the close animation plays
+    // (Home clears `product` to null the moment the popup starts closing)
+    const [shownProduct, setShownProduct] = useState(product)
+    if (product && product !== shownProduct) {
+      setShownProduct(product)
+    }
+
     return (
     <Dialog.Root
       open={Boolean(product)}
@@ -23,6 +32,7 @@ export default function BuyNow({ product, onClose}) {
       }}
       placement="center"
       size="sm"
+      motionPreset="slide-in-bottom"
     >
       <Portal>
         <Dialog.Backdrop />
@@ -32,26 +42,17 @@ export default function BuyNow({ product, onClose}) {
             <Dialog.Header>
               <Stack gap="1">
                 <Dialog.Title fontSize="md">
-                  {product?.name}
+                  {shownProduct?.name}
                 </Dialog.Title>
 
                 <Text fontSize="sm">
-                  ${Number(product?.price ?? 0).toFixed(2)}
+                  ${Number(shownProduct?.price ?? 0).toFixed(2)}
                 </Text>
               </Stack>
             </Dialog.Header>
 
             <Dialog.Body>
-              <Image
-                src={product?.image_url || product?.thumbnail_url}
-                alt={product?.name}
-                width="full"
-                aspectRatio="1"
-                objectFit="contain"
-                bg="gray.50"
-              />
-
-              <Stack gap="2" mt="4">
+              <Stack gap="2">
                 <Text fontSize="sm" fontWeight="medium">
                   Size
                 </Text>
@@ -63,6 +64,7 @@ export default function BuyNow({ product, onClose}) {
                       flex="1"
                       size="sm"
                       variant={selectedSize === size ? 'subtle' : 'outline'}
+                      {...PRESSABLE}
                       onClick={() => setSelectedSize(size)}
                     >
                       {size}
@@ -87,23 +89,36 @@ export default function BuyNow({ product, onClose}) {
                       boxSize="8"
                       minW="8"
                       p="0"
+                      color="white"
+                      {...PRESSABLE}
+                      _hover={{ transform: 'scale(1.08)' }}
+                      _active={{ transform: 'scale(0.9)' }}
                       onClick={() => setSelectedColor(color.name)}
                     >
-                      {selectedColor === color.name ? '✓' : ''}
+                      <Box {...checkStyle(selectedColor === color.name)}>
+                        <LuCheck />
+                      </Box>
                     </Button>
                   ))}
                 </HStack>
               </Stack>
 
-              {product?.description && (
+              {shownProduct?.description && (
                 <Text mt="4" fontSize="xs" color="gray.600">
-                  {product.description}
+                  {shownProduct.description}
                 </Text>
               )}
             </Dialog.Body>
 
             <Dialog.Footer>
-              <Button width="full" bg="black" color="white">
+              <Button
+                width="full"
+                bg="black"
+                color="white"
+                {...PRESSABLE}
+                _hover={{ bg: 'gray.700', transform: 'translateY(-2px)', boxShadow: 'lg' }}
+                _active={{ transform: 'scale(0.98)' }}
+              >
                 Add to cart
               </Button>
             </Dialog.Footer>

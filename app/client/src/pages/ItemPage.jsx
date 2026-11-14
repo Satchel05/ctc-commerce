@@ -3,19 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Center, Container, Box, Button, Circle, Text, Image, Spinner, Stack, HStack, IconButton, AspectRatio } from '@chakra-ui/react'
 import { LuCheck, LuChevronLeft } from 'react-icons/lu'
 import { backend } from '../lib/backend.js'
+import { PRESSABLE, checkStyle } from '../lib/pressable.js'
 
 // Hardcoded until the database stores real options per product
 const SIZES = ['S', 'M', 'L']
 const COLORS = ['#DD6B20', '#C53030', '#38A169', '#3B6FE0']
 
-// Shared click feel: smooth color changes plus a slight shrink while pressed
-const PRESSABLE = {
-    transitionProperty: 'background-color, border-color, color, transform',
-    transitionDuration: '0.2s',
-    transitionTimingFunction: 'ease-out',
-    _active: { transform: 'scale(0.96)' },
-    _motionReduce: { transition: 'none' },
-}
 
 export default function ItemPage() {
     const { id } = useParams();
@@ -123,15 +116,11 @@ export default function ItemPage() {
                                 aria-label={`Select color ${color}`}
                                 onClick={() => setSelectedColor(color)}
                                 {...PRESSABLE}
+                                _hover={{ transform: 'scale(1.08)' }}
                                 _active={{ transform: 'scale(0.9)' }}
                             >
                                 {/* Always rendered so the check can fade/pop in instead of appearing instantly */}
-                                <Box
-                                    opacity={color === selectedColor ? 1 : 0}
-                                    transform={color === selectedColor ? 'scale(1)' : 'scale(0.4)'}
-                                    transition='opacity 0.2s ease-out, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)'
-                                    _motionReduce={{ transition: 'none' }}
-                                >
+                                <Box {...checkStyle(color === selectedColor)}>
                                     <LuCheck />
                                 </Box>
                             </Circle>
@@ -169,7 +158,7 @@ export default function ItemPage() {
                         bg='gray.900'
                         color='white'
                         {...PRESSABLE}
-                        _hover={{ bg: 'gray.700' }}
+                        _hover={{ bg: 'gray.700', transform: 'translateY(-2px)', boxShadow: 'lg' }}
                         _active={{ transform: 'scale(0.98)' }}
                         onClick={handleAddToCart}
                     >

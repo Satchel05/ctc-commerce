@@ -16,6 +16,7 @@ import { BsBagFill } from "react-icons/bs";
 import { backend } from "../lib/backend.js";
 import BuyNow from "../components/BuyNow.jsx";
 import FilterSidebar from "../components/ui/FilterSidebar.jsx";
+import { PRESSABLE } from "../lib/pressable.js";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -103,7 +104,11 @@ export default function Home() {
             overflow="hidden"
             cursor="pointer"
             transition="transform 0.2s ease-out, box-shadow 0.2s ease-out"
-            _hover={{ transform: "translateY(-4px)", boxShadow: "lg" }}
+            _hover={{
+              transform: "translateY(-4px)",
+              boxShadow: "lg",
+              "& img": { transform: "scale(1.05)" },
+            }}
             _active={{ transform: "scale(0.98)" }}
             _motionReduce={{ transition: "none" }}
             onClick={() => nav(`/products/${product.id}`)}
@@ -111,6 +116,8 @@ export default function Home() {
             <Image
               src={product.image_url}
               alt="Green double couch with wooden legs"
+              transition="transform 0.3s ease-out"
+              _motionReduce={{ transition: "none" }}
             />
             <Card.Body gap="2">
               <Card.Title>{product.name}</Card.Title>
@@ -127,6 +134,8 @@ export default function Home() {
             <Card.Footer gap="2">
               <Button
                 variant="solid"
+                {...PRESSABLE}
+                _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
                 onClick={(event) => {
                   event.stopPropagation();
                   setSelectedProduct(product);
@@ -134,7 +143,9 @@ export default function Home() {
               >
                 Buy now
               </Button>
-              <Button variant="ghost">Add to cart</Button>
+              <Button variant="ghost" {...PRESSABLE}>
+                Add to cart
+              </Button>
             </Card.Footer>
           </Card.Root>
         ))}
