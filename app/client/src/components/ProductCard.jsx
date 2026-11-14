@@ -1,35 +1,24 @@
-import { Badge, IconButton, Image } from '@chakra-ui/react'
-import { LuHeart, LuStar } from 'react-icons/lu'
+import { Link } from 'react-router-dom'
 
 export default function ProductCard({ product, liked, onToggleLike }) {
   return (
-    <div className="rounded-xl bg-white p-3">
-      <div className="relative">
-        <Image
-          src={product.thumbnail_url}
-          alt={product.name}
-          className="aspect-square w-full rounded-lg object-cover"
-        />
-        <IconButton
-          aria-label="Favorite"
-          variant="ghost"
-          size="sm"
-          className="absolute right-1 top-1"
-          onClick={() => onToggleLike(product.id)}
-        >
-          <LuHeart fill={liked ? 'currentColor' : 'none'} />
-        </IconButton>
+    <article className="shop-card">
+      <div className="shop-card-image">
+        <Link to={`/item/${product.id}`} aria-label={`View ${product.name}`}>
+          <img src={product.thumbnail_url || product.image_url} alt={product.name} />
+        </Link>
+        <button type="button" className="shop-favorite" aria-label={`Favorite ${product.name}`}
+          aria-pressed={liked} onClick={() => onToggleLike(product.id)}>
+          <img src="/assets/shopping/favorite.svg" alt="" />
+        </button>
       </div>
-
-      <div className="mt-2 flex justify-between text-sm">
-        <span>{product.name}</span>
+      <div className="shop-card-info">
+        <Link to={`/item/${product.id}`}>{product.name}</Link>
         <span>${Number(product.price).toFixed(2)}</span>
       </div>
-
-      <Badge variant="outline" className="mt-1">
-        <LuStar className="text-yellow-400" fill="currentColor" />
-        {product.rating ?? '-'}
-      </Badge>
-    </div>
+      <span className="shop-rating"><img src="/assets/shopping/star.svg" alt="Rating" />
+        {product.rating == null ? '–' : Number(product.rating).toFixed(1)}
+      </span>
+    </article>
   )
 }

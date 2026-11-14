@@ -2,7 +2,7 @@ import ProductCard from './ProductCard.jsx'
 
 export default function ProductGrid({ products, likedIds, onToggleLike }) {
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="shop-grid">
       {products.map((p) => (
         <ProductCard
           key={p.id}
