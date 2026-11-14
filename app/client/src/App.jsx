@@ -10,6 +10,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/item/:id" element={<ItemDetails />} />
+        <Route path="/shoppingcart" element={<ShoppingCart />} />
       </Routes>
       </Provider>
     </BrowserRouter>
